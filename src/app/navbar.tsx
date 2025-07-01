@@ -3,10 +3,10 @@ import Logo from "@/components/logo";
 import Link from "next/link";
 
 export default function Navbar(){
-    return <nav className="flex justify-between items-center px-2">
+    return <nav className=" py-4 flex justify-between items-center px-2">
         <h2 className="flex items-center gap-2 font-semibold text-xl">
             <Logo />
-            SplitsApp
+            Tally
         </h2>
         <ul className="hidden md:flex gap-4">
             <li>About us</li>

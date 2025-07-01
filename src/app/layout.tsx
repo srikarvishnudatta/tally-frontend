@@ -7,8 +7,8 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "SplitsApp",
-  description: "SplitsApp to split expenses easily",
+  title: "Tally",
+  description: "Tally your expenses easily",
 };
 
 export default function RootLayout({

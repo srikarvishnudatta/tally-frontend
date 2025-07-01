@@ -12,25 +12,24 @@ import Input from "@/components/input";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/logo";
+import { UserDto } from "@/types/types";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 async function createUserIfNotExists(
-  accessToken: string,
-  user: { id: string; name: string; email: string }
+  user: UserDto
 ) {
-  const response = await fetch(`${BASE_URL}create if not exists`, {
+  const response = await fetch(`${BASE_URL}/user/create-if-not-exists`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify(user),
   });
   if (!response.ok) {
     throw new Error("Failed to create user in database: " + response.status);
   }
-  return await response.json();
+  return response;
 }
 
 export default function Register() {
@@ -42,14 +41,12 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-
     const form = e.currentTarget;
     const formData = new FormData(form);
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
-
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -60,12 +57,12 @@ export default function Register() {
         displayName: `${firstName} ${lastName}`,
       });
       const accessToken = await userCredential.user.getIdToken();
-      await createUserIfNotExists(accessToken, {
-        id: userCredential.user.uid,
-        name: `${firstName} ${lastName}`,
-        email,
+      await createUserIfNotExists({
+        token: accessToken,
+        firstName,
+        lastName
       });
-      router.push("/home/groups");
+      router.push("/home");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);

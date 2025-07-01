@@ -26,8 +26,16 @@ export default function Signin() {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      router.push("/home/groups")
+      const credentials = await signInWithEmailAndPassword(auth, email, password);
+      const token = await credentials.user.getIdToken();
+      await fetch('/api/set-token', {
+        method: 'POST',
+        headers: {
+          'Content-type':'application/json'
+        },
+        body: JSON.stringify({token})
+      })
+      router.push("/home")
     }catch(error){
       setError("invalid credentials or account doesnt exist");
     } finally{

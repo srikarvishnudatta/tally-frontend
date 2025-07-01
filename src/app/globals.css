@@ -4,3 +4,9 @@
   --color-primary: #4a9e72;
   --color-secondary: #f3c3f8;
 }
+.navlink {
+  @apply hover:text-primary/90 transition-all duration-300;
+}
+.navlist{
+  @apply flex items-center gap-1;
+}
