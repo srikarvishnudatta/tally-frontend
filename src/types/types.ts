@@ -19,9 +19,9 @@ export type InputProps = DefaultProps & {
     name?:string,
     required?:boolean,
     type?:HTMLInputAttribute,
-    defaultValue?:string,
+    defaultValue?:string | number,
     placeholder?:string,
-    value?:string,
+    value?:string | number,
     onChange?:(ev: ChangeEvent<HTMLInputElement>) => void,
     step?:string
 }
@@ -29,7 +29,8 @@ export type InputProps = DefaultProps & {
 export type ExpenseModalProps = {
     isOpen:boolean,
     onClose: () => void,
-    onSubmit: (data: NewExpense) => void
+    onSubmit: (data: NewExpense) => void,
+    expense?: Expense
 }
 
 export interface UserDto {
@@ -50,5 +51,5 @@ export type NewExpense = {
     expenseName:string,
     description:string,
     amount:number,
-    type: 'expense' | 'income'
+    expenseType: 'expense' | 'income'
 }

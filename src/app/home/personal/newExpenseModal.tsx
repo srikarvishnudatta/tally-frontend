@@ -4,7 +4,7 @@ import Input from "@/components/input";
 import { ExpenseModalProps } from "@/types/types";
 import {  FormEvent, useRef } from "react";
 
-const NewExpenseModal = ({ isOpen, onClose, onSubmit }: ExpenseModalProps) => {
+const NewExpenseModal = ({ isOpen, onClose, onSubmit, expense }: ExpenseModalProps) => {
   const modalRef = useRef(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -13,8 +13,8 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit }: ExpenseModalProps) => {
     const expenseName = formData.get("expenseName") as string;
     const description = formData.get("description") as string;
     const amount = parseFloat(formData.get("amount") as string);
-    const type = formData.get("type") as 'income' | 'expense';
-    onSubmit({ expenseName, description, amount, type });
+    const expenseType = formData.get("type") as 'income' | 'expense';
+    onSubmit({ expenseName, description, amount, expenseType });
     onClose();
   };
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -39,6 +39,7 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit }: ExpenseModalProps) => {
           <Input
             type="text"
             name="expenseName"
+            defaultValue={expense?.expenseName}
             placeholder="Name"
             required
             className="w-full border px-4 py-2 rounded-md"
@@ -46,12 +47,14 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit }: ExpenseModalProps) => {
           <Input
             name="description"
             placeholder="Description"
+            defaultValue={expense?.description}
             required
             className="w-full border px-4 py-2 rounded-md"
           />
           <Input
             type="number"
             name="amount"
+            defaultValue={expense?.amount}
             placeholder="Amount"
             required
             step="any"
@@ -61,9 +64,10 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit }: ExpenseModalProps) => {
             name="type"
             className="w-full border px-4 py-2 rounded-md"
             required
+            defaultValue={expense?.type}
           >
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
+            <option value="expense" >Expense</option>
+            <option value="income" >Income</option>
           </select>
           <div className="flex justify-end space-x-2">
             <Button

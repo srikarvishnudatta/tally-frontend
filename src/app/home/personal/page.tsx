@@ -5,7 +5,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 
 async function getExpenses(){
-    const response = await fetchWithAuth(`${BASE_URL}/expenses/personal/`, { cache: 'no-store' });
+    const response = await fetchWithAuth(`${BASE_URL}/expenses/personal/`, {cache: 'no-store'});
     return await response.json();
 }
 
