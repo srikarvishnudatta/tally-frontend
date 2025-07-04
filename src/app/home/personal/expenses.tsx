@@ -9,6 +9,7 @@ import  useFetchClient  from "@/utils/fetchClient";
 import { useToast } from "@/components/toast/useToast";
 import { useRouter } from "next/navigation";
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL as string;
+
 type ExpensesProps = {
   expenses: Expense[];
 };
@@ -25,7 +26,9 @@ export default function Expenses({ expenses }: ExpensesProps) {
     });
     if (response?.ok) {
       toast("expense added successfully");
-      setShowModal(false);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 2000)
       router.refresh();
     }
   };
@@ -33,16 +36,16 @@ export default function Expenses({ expenses }: ExpensesProps) {
     <div className="pt-5">
       <Button
         variant="primary"
-        className="flex gap-2"
+        className="flex gap-2 font-bold"
         type="button"
         onClick={() => setShowModal(true)}
       >
         <Plus />
-        Expense
+        Add Expense
       </Button>
-      <p className="text-sm font-semibold text-gray-400 border-b border-b-gray-300">
-        Jun, 2025
-      </p>
+      <h1 className="text-2xl font-semibold my-4">
+        Recent Transactions
+      </h1>
       {expenses.length === 0 ? (
         <p>No Expenses so far...</p>
       ) : (

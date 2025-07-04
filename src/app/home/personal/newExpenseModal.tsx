@@ -5,7 +5,7 @@ import { ExpenseModalProps } from "@/types/types";
 import {  FormEvent, useRef } from "react";
 
 const NewExpenseModal = ({ isOpen, onClose, onSubmit, expense }: ExpenseModalProps) => {
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +31,7 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit, expense }: ExpenseModalPro
       onClick={handleOverlayClick}
     >
       <div
-        className="bg-white rounded-2xl shadow-lg w-full max-w-md p-6 animate-fadeIn scale-100 transition-all duration-200"
+        className="bg-white rounded-2xl shadow-lg w-full max-w-md p-10 animate-fadeIn scale-100 transition-all duration-200"
         ref={modalRef}
       >
         <h2 className="text-xl font-bold mb-4">Add New Expense</h2>
@@ -44,13 +44,7 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit, expense }: ExpenseModalPro
             required
             className="w-full border px-4 py-2 rounded-md"
           />
-          <Input
-            name="description"
-            placeholder="Description"
-            defaultValue={expense?.description}
-            required
-            className="w-full border px-4 py-2 rounded-md"
-          />
+          
           <Input
             type="number"
             name="amount"
@@ -62,24 +56,34 @@ const NewExpenseModal = ({ isOpen, onClose, onSubmit, expense }: ExpenseModalPro
           />
            <select
             name="type"
-            className="w-full border px-4 py-2 rounded-md"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md"
             required
             defaultValue={expense?.type}
           >
             <option value="expense" >Expense</option>
             <option value="income" >Income</option>
           </select>
+          <textarea
+            name="description"
+            placeholder="Description"
+            defaultValue={expense?.description}
+            required
+            
+            className="w-full h- border border-gray-300 px-4 py-2 rounded-md"
+          />
           <div className="flex justify-end space-x-2">
             <Button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300"
+              variant="destructive"
+              className="px-4 py-2 rounded-md"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700"
+              variant="primary"
+              className="px-4 py-2 rounded-md"
             >
               Add
             </Button>

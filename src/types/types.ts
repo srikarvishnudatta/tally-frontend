@@ -53,3 +53,25 @@ export type NewExpense = {
     amount:number,
     expenseType: 'expense' | 'income'
 }
+export interface InvitationResponse{
+    id:number;
+    groupName: string;
+    email: string;
+    status: string;
+}
+export interface InvitationStatusType{
+    id:number;
+    status:string;
+}
+export interface Group{
+    id:number;
+    groupName:string;
+    groupDescription:string;
+    members:GroupMember[];
+    admin:boolean;
+}
+export interface GroupMember{
+    firstName:string;
+    lastName:string;
+    email:string;
+}

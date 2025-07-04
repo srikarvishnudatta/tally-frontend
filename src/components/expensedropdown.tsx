@@ -1,15 +1,21 @@
 // components/DropdownMenu.js
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
+import { Trash, Edit } from 'lucide-react';
 
-const DropdownMenu = ({ onEdit, onDelete }) => {
+type DropdownMenuProps = {
+  onEdit: () => void,
+  onDelete: () => void
+}
+
+const DropdownMenu = ({ onEdit, onDelete }: DropdownMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
     };
@@ -33,18 +39,18 @@ const DropdownMenu = ({ onEdit, onDelete }) => {
               onEdit();
               setIsOpen(false);
             }}
-            className="w-full px-4 py-2 text-sm hover:bg-gray-100"
+            className="flex items-center gap-1 w-full px-4 py-2 text-sm hover:bg-gray-100"
           >
-            Edit
+            <Edit size={16}/>Edit
           </button>
           <button
             onClick={() => {
               onDelete();
               setIsOpen(false);
             }}
-            className="w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+            className="flex items-center gap-1 w-full px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
           >
-            Delete
+            <Trash size={16}/> Delete
           </button>
         </div>
       )}

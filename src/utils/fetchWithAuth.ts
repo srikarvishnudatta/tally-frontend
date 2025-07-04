@@ -20,6 +20,6 @@ export async function fetchWithAuth(input: RequestInfo, init?:RequestInit){
         return response;
     } catch (error) {
         console.log(error);
-       redirect("/auth/signin");
+       // redirect("/auth/signin");
     }
 }
