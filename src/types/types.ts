@@ -33,6 +33,13 @@ export type ExpenseModalProps = {
     expense?: Expense
 }
 
+export type GroupModalProps = {
+    isOpen:boolean,
+    onClose: () => void,
+    onSubmit: (data: NewGroup) => void,
+    group?: Group
+}
+
 export interface UserDto {
     token:string;
     firstName:string;
@@ -69,6 +76,10 @@ export interface Group{
     groupDescription:string;
     members:GroupMember[];
     admin:boolean;
+}
+export interface NewGroup{
+    groupName:string;
+    groupDescription:string;
 }
 export interface GroupMember{
     firstName:string;
